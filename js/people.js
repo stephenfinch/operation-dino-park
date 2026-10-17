@@ -23,7 +23,7 @@ export function loadPeople(base = 'assets/models/quaternius-people/') {
   if (!loading) {
     loading = (async () => {
       try {
-        const M = window.ISLA_MODELS, loader = new GLTFLoader();
+        const M = window.DINOPARK_MODELS, loader = new GLTFLoader();
         const get = (n) => (M?.[n] ? loader.parseAsync(Uint8Array.from(atob(M[n]), (c) => c.charCodeAt(0)).buffer, '') : loader.loadAsync(base + n + '.glb'));
         const baked = await Promise.all(CHARS.map(async (c) => bake(await get(c), c !== 'Man_Suit')));
         PEOPLE.baked = baked;

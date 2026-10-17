@@ -12,10 +12,10 @@ import { loadPeople } from './people.js';
 import { loadFarm } from './livestock.js';
 import { updateTouch } from './touch.js';
 
-// Keep recent errors for debugging from the browser console (ISLA_ERRORS).
-window.ISLA_ERRORS = [];
-window.addEventListener('error', (e) => { window.ISLA_ERRORS.push(String(e.error?.stack || e.message)); if (window.ISLA_ERRORS.length > 30) window.ISLA_ERRORS.shift(); });
-window.addEventListener('unhandledrejection', (e) => window.ISLA_ERRORS.push('promise: ' + String(e.reason?.stack || e.reason)));
+// Keep recent errors for debugging from the browser console (DINOPARK_ERRORS).
+window.DINOPARK_ERRORS = [];
+window.addEventListener('error', (e) => { window.DINOPARK_ERRORS.push(String(e.error?.stack || e.message)); if (window.DINOPARK_ERRORS.length > 30) window.DINOPARK_ERRORS.shift(); });
+window.addEventListener('unhandledrejection', (e) => window.DINOPARK_ERRORS.push('promise: ' + String(e.reason?.stack || e.reason)));
 
 loadSettings();
 const canvas = document.getElementById('c');
@@ -125,7 +125,7 @@ function frame(now) {
 requestAnimationFrame(frame);
 
 // Debug handle for the browser console.
-window.ISLA = G;
+window.DINOPARK = G;
 
 // Offline play and "Add to Home Screen": the service worker caches the game as it loads.
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {

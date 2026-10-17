@@ -27,7 +27,7 @@ for (const dir of ['assets/models/quaternius', 'assets/models/quaternius-nature'
   const d = path.join(root, dir);
   for (const f of fs.readdirSync(d)) if (f.endsWith('.glb')) models[f.replace('.glb', '')] = fs.readFileSync(path.join(d, f)).toString('base64');
 }
-const modelScript = `<script>window.ISLA_MODELS=${JSON.stringify(models)};</script>`;
+const modelScript = `<script>window.DINOPARK_MODELS=${JSON.stringify(models)};</script>`;
 const body = `${modelScript}
 <canvas id="c" tabindex="0" aria-label="Operation Dino Park park view"></canvas>
 <div id="ui"></div>

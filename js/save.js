@@ -1,8 +1,7 @@
 // Save games in localStorage. Slot "auto" holds the autosave.
 import { G } from './state.js';
 
-// Storage keys keep the game's first name (Isla Genesis) so existing saves still load.
-const PREFIX = 'isla-genesis:save:';
+const PREFIX = 'operation-dino-park:save:';
 export const SLOTS = ['auto', '1', '2', '3', '4', '5', '6'];
 
 function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }

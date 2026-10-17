@@ -23,7 +23,7 @@ export function loadFarm(base = 'assets/models/quaternius-farm/') {
     const loader = new GLTFLoader();
     loading = Promise.all([...new Set(Object.values(MODEL))].map(async (n) => {
       try {
-        const b64 = window.ISLA_MODELS?.[n];
+        const b64 = window.DINOPARK_MODELS?.[n];
         const g = b64 ? await loader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : await loader.loadAsync(base + n + '.glb');
         g.scene.updateMatrixWorld(true);
         const box = new THREE.Box3().setFromObject(g.scene);

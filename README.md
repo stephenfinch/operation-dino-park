@@ -41,7 +41,7 @@ This writes `dist/standalone.html` (open directly) and `dist/operation-dino-park
 | Operation Genesis | Generate an island (size; round, square, star, long, crescent, twin peaks, deep bay, peninsula, lagoon or separate islands; trees, rivers, mountains). Start with $60,000, one hunting ground already owned with a team digging there, and enough DNA for one small herbivore and one small carnivore. Place your Park Entrance, build, open the park, and aim for 5 stars. A board meeting reviews you every quarter. |
 | Exercises | Nine, as in the original: four tutorials (controls; fossils and DNA; what visitors want; safety) and five scenarios (open-range herbivores, a classic island, cleaning up a breeding island, a carnivore island, a stormy island). |
 | Missions | Ten action missions in the original's four kinds. Safari: drive a Land Cruiser freely and photograph dinosaurs (by behaviour, weather or points; carnivores charge the car). Ranger Attack: retire carnivores from the helicopter with limited ammunition and a timer, or shoot out haywire hatcheries. Dino Muster: herd herbivores into a muster area with the helicopter's muster (press M). Ranger Rescue: fly or drive a VIP to safety. |
-| Site B | Unlocked by finishing every mission or reaching 5 stars (or type `genesis` on the main menu). No fences, no visitors; only hatcheries, feeders and lures. |
+| Site B | Unlocked by finishing every mission or reaching 5 stars (or type `dinopark` on the main menu). No fences, no visitors; only hatcheries, feeders and lures. |
 | Sandbox | Unlimited money, all research done, every genome at 100%. |
 
 ## What's simulated

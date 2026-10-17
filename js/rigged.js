@@ -33,7 +33,7 @@ export function loadRigs(base = 'assets/models/quaternius/') {
     loading = Promise.all(FILES.map(async (n) => {
       try {
         // The single-file build embeds the models as base64; the dev build fetches them.
-        const b64 = window.ISLA_MODELS?.[n];
+        const b64 = window.DINOPARK_MODELS?.[n];
         const g = b64 ? await loader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : await loader.loadAsync(base + n + '.glb');
         prepareRig(n, g);
       } catch (e) { console.warn('Could not load model', n, e); }

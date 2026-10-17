@@ -84,8 +84,8 @@ export class UI {
     this.cheat = '';
     window.addEventListener('keydown', (e) => {
       if (!this.$('menu').hidden && e.key.length === 1) {
-        this.cheat = (this.cheat + e.key.toLowerCase()).slice(-7);
-        if (this.cheat === 'genesis') { const p = loadProgress(); p.siteB = true; saveProgress(p); this.showMenu(); this.toast({ text: 'Site B unlocked.', kind: 'good' }); }
+        this.cheat = (this.cheat + e.key.toLowerCase()).slice(-8);
+        if (this.cheat === 'dinopark') { const p = loadProgress(); p.siteB = true; saveProgress(p); this.showMenu(); this.toast({ text: 'Site B unlocked.', kind: 'good' }); }
       }
     });
   }

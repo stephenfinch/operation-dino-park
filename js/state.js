@@ -17,7 +17,7 @@ export const G = {
   },
 };
 
-const SETTINGS_KEY = 'isla-genesis:settings'; // old name kept so saved settings still load
+const SETTINGS_KEY = 'operation-dino-park:settings';
 export function loadSettings() {
   try {
     const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');

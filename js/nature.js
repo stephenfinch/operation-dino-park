@@ -11,7 +11,7 @@ export function loadNature(url = 'assets/models/quaternius-nature/nature.glb') {
   if (!loading) {
     loading = (async () => {
       try {
-        const b64 = window.ISLA_MODELS?.nature;
+        const b64 = window.DINOPARK_MODELS?.nature;
         const loader = new GLTFLoader();
         const g = b64 ? await loader.parseAsync(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)).buffer, '') : await loader.loadAsync(url);
         g.scene.traverse((o) => { if (o.isMesh) src.set(o.name, brighten(o.geometry)); });

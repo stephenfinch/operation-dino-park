@@ -5,7 +5,7 @@ import { clamp, rand, randi, pick, chance, fmtMoney, lerp } from './util.js';
 
 export const INCOME_CATS = ['Entry', 'Shops', 'Rides', 'Hotels', 'Photos', 'Sales'];
 export const EXPENSE_CATS = ['Construction', 'Upkeep', 'Staff', 'Feed', 'Stock', 'Research', 'Expeditions', 'Hatchery', 'Fines'];
-const PROGRESS_KEY = 'isla-genesis:progress'; // old name kept so saved progress still loads
+const PROGRESS_KEY = 'operation-dino-park:progress';
 
 export function loadProgress() {
   try {
