@@ -207,6 +207,13 @@ export const HudMethods = {
     const n = ring.length;
     const R = Math.max(128, n * 19);
     w.style.setProperty('--R', R + 'px');
+    // On a small screen the wheel sits in the middle and shrinks to fit.
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const small = vw < 760 || vh < 600;
+    const s = small ? Math.min(1, (Math.min(vw, vh) / 2 - 6) / (R + 46)) : 1;
+    w.style.left = small ? vw / 2 + 'px' : '';
+    w.style.top = small ? vh / 2 + 'px' : '';
+    w.style.transform = s < 1 ? `scale(${s.toFixed(3)})` : '';
     w.innerHTML = `<div class="hub glass" id="wheel-label">${esc(label)}</div>` + ring.map((h, i) => {
       const a = -Math.PI / 2 + (i / n) * Math.PI * 2;
       return h.replace('class="medal ringitem', `style="left:${(Math.cos(a) * R).toFixed(1)}px;top:${(Math.sin(a) * R).toFixed(1)}px" class="medal ringitem`);

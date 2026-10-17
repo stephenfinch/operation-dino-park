@@ -74,10 +74,10 @@ export class UI {
     this.root.addEventListener('click', (e) => this.onClick(e));
     this.root.addEventListener('input', (e) => this.onInput(e));
     this.root.addEventListener('change', (e) => this.onInput(e));
-    this.root.addEventListener('mouseover', (e) => { const el = e.target.closest('[data-tip]'); if (el) this.hoverTip(el.dataset.tip, e); });
-    window.addEventListener('pointerdown', () => { this.pointerHeld = true; }, true);
+    this.root.addEventListener('mouseover', (e) => { const el = !this.touchInput && e.target.closest('[data-tip]'); if (el) this.hoverTip(el.dataset.tip, e); });
+    window.addEventListener('pointerdown', (e) => { this.pointerHeld = true; this.touchInput = e.pointerType === 'touch'; }, true);
     window.addEventListener('pointerup', () => { this.pointerHeld = false; }, true);
-    this.root.addEventListener('mousemove', (e) => { const el = e.target.closest('[data-tip]'); if (el) this.hoverTip(el.dataset.tip, e); else if (this.tipFromUI) this.cursorTip(null); });
+    this.root.addEventListener('mousemove', (e) => { const el = !this.touchInput && e.target.closest('[data-tip]'); if (el) this.hoverTip(el.dataset.tip, e); else if (this.tipFromUI) this.cursorTip(null); });
     this.root.addEventListener('mouseout', (e) => { if (e.target.closest('[data-tip]')) this.cursorTip(null); });
     this.bindMinimap();
     this.renderToolbar();

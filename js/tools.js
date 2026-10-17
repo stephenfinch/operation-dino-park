@@ -49,6 +49,7 @@ export class Tools {
     this.tool = t || { type: 'select' };
     if (this.tool.type === 'building' && this.tool.rot == null) this.tool.rot = this.lastRot || 0;
     this.drag = null;
+    this.touchTile = null;
     this.clearPreview();
     if (this.ghost) { this.preview.remove(this.ghost); this.ghost = null; }
     const grid = ['fence', 'path', 'track', 'building', 'bulldoze', 'water', 'land', 'raise', 'lower', 'flora', 'release', 'acuMove'].includes(this.tool.type);
@@ -72,6 +73,13 @@ export class Tools {
     window.addEventListener('blur', () => this.engine.keys.clear());
   }
 
+  rotate() {
+    if (this.tool.type !== 'building') return;
+    this.tool.rot = (this.tool.rot + 1) % 4; this.tool.manualRot = true; this.lastRot = this.tool.rot;
+    if (this.ghost) { this.preview.remove(this.ghost); this.ghost = null; }
+    this.updateHover();
+  }
+
   ground(e) { return this.engine.pickGround(e.clientX, e.clientY, 0); }
 
   // Two-finger touch: pinch to zoom, twist to rotate.
@@ -81,7 +89,7 @@ export class Tools {
     if (this.touches.size === 2) {
       const [a, b] = [...this.touches.values()];
       const cam = this.engine.cam;
-      this.pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), ang: Math.atan2(b.y - a.y, b.x - a.x), dist: cam.tdist, yaw: cam.tyaw };
+      this.pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), ang: Math.atan2(b.y - a.y, b.x - a.x), dist: cam.tdist, yaw: cam.tyaw, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2, tx: cam.tx, tz: cam.tz };
       this.down = null; this.drag = null; this.clearPreview();
       return true;
     }
@@ -96,6 +104,15 @@ export class Tools {
     const d = Math.hypot(a.x - b.x, a.y - b.y);
     cam.tdist = clamp(this.pinch.dist * (this.pinch.d / Math.max(20, d)), 5, G.engine.maxDist());
     cam.tyaw = this.pinch.yaw - (Math.atan2(b.y - a.y, b.x - a.x) - this.pinch.ang);
+    // moving both fingers together pans the camera
+    if (cam.mode !== 'ride') {
+      const dx = (a.x + b.x) / 2 - this.pinch.mx, dy = (a.y + b.y) / 2 - this.pinch.my;
+      const k = cam.tdist / window.innerHeight * 1.6;
+      const fx = -Math.sin(cam.tyaw), fz = -Math.cos(cam.tyaw), rx = Math.cos(cam.tyaw), rz = -Math.sin(cam.tyaw);
+      cam.tx = this.pinch.tx - rx * dx * k + fx * dy * k;
+      cam.tz = this.pinch.tz - rz * dx * k + fz * dy * k;
+      if (cam.mode === 'follow') { cam.mode = 'orbit'; cam.follow = null; }
+    }
     return true;
   }
   touchUp(e) {
@@ -186,6 +203,12 @@ export class Tools {
     if (d.button !== 0) return;
     const t = this.tool.type;
     if (this.drag) { this.commitDrag(); this.drag = null; this.clearPreview(); this.updateHover(e); return; }
+    // Touch has no hover: the first tap (or a drag) shows the building there, a second tap on the same tile places it.
+    if (t === 'building' && e.pointerType === 'touch') {
+      const q = this.ground(e);
+      const key = q ? `${Math.floor(q.x)},${Math.floor(q.z)}` : null;
+      if (d.moved || key !== this.touchTile) { this.touchTile = key; this.updateHover(e); return; }
+    }
     if (d.moved) return;
     const p = this.ground(e);
     if (t === 'select') {
@@ -252,7 +275,7 @@ export class Tools {
     }
     if (k === ' ') { e.preventDefault(); G.ui?.setSpeed(g.speed === 0 ? (this.prevSpeed || 1) : 0); if (g.speed === 0) {} else this.prevSpeed = g.speed; return; }
     if (k === '1' || k === '2' || k === '3') { G.ui?.setSpeed(Number(k)); return; }
-    if (k === 'r' && this.tool.type === 'building') { this.tool.rot = (this.tool.rot + 1) % 4; this.tool.manualRot = true; this.lastRot = this.tool.rot; if (this.ghost) { this.preview.remove(this.ghost); this.ghost = null; } this.updateHover(); return; }
+    if (k === 'r' && this.tool.type === 'building') { this.rotate(); return; }
     if (k === 'delete' || k === 'x') { this.setTool({ type: 'bulldoze' }); return; }
     if (k === 'tab') { e.preventDefault(); document.getElementById('mm-tab')?.click(); return; }
     if (k === 'g') { g.view.grid.visible = !g.view.grid.visible; return; }
@@ -340,7 +363,7 @@ export class Tools {
       this.setTiles(list);
       const def = BLD[this.tool.id];
       const extraTip = this.tool.id === 'hatchery' ? '<br><small>Amber tile: release gate. Point it into an enclosure.</small>' : def.path ? '<br><small>Blue tile: entrance (needs a footpath)</small>' : '';
-      G.ui?.cursorTip(`${def.name} — ${this.tool.door != null ? 'place the dome' : this.tool.station != null ? `pole ${G.game.balloonPoles(G.game.buildings.get(this.tool.station) || {}).length + 1}, ${fmtMoney(def.cost)}` : fmtMoney(def.cost)}${c.ok ? (c.warn ? `<br><span class=warn>${c.warn}</span>` : '') : `<br><span class=bad>${c.reason}</span>`}${extraTip}<br><small>R to rotate · right-click to cancel</small>`, ev.clientX, ev.clientY);
+      G.ui?.cursorTip(`${def.name} — ${this.tool.door != null ? 'place the dome' : this.tool.station != null ? `pole ${G.game.balloonPoles(G.game.buildings.get(this.tool.station) || {}).length + 1}, ${fmtMoney(def.cost)}` : fmtMoney(def.cost)}${c.ok ? (c.warn ? `<br><span class=warn>${c.warn}</span>` : '') : `<br><span class=bad>${c.reason}</span>`}${extraTip}<br><small>${G.ui?.touchInput ? 'Tap again to place' : 'R to rotate · right-click to cancel'}</small>`, ev.clientX, ev.clientY);
       return;
     }
     if (this.ghost) this.ghost.visible = false;

@@ -18,7 +18,8 @@ void main(){ vec3 d = normalize(vW - cameraPosition); float h = clamp(d.y*1.4+0.
 export class Engine {
   constructor(canvas) {
     const r = (this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance', preserveDrawingBuffer: true }));
-    r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // phones and tablets render at a lower ratio to keep the frame rate up
+    r.setPixelRatio(Math.min(window.devicePixelRatio, matchMedia('(pointer: coarse)').matches ? 1.5 : 2));
     r.shadowMap.enabled = G.settings.shadows;
     r.shadowMap.type = THREE.PCFSoftShadowMap;
     r.toneMapping = THREE.ACESFilmicToneMapping;

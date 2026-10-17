@@ -15,6 +15,8 @@ Build fences and paths, fund fossil digs around the world, extract DNA, hatch 25
 
 ## Play
 
+**Online:** https://stephenfinch.github.io/isla-genesis/ (GitHub Pages, deployed from `main`). It works on phones and tablets, and can be installed as an app ("Add to Home Screen" / "Install app"); after the first visit it plays offline.
+
 **Local, no build step:**
 
 ```bash
@@ -84,6 +86,8 @@ Rules, prices and behaviour follow the original as documented by its fan wiki an
 | Esc | Close / cancel / exit ride |
 | H | Help |
 
+**Touch screens:** one finger pans (or drags a fence or path), two fingers pinch to zoom, twist to rotate and move together to pan. Tap a building once to preview it, and tap the same spot again to place it. While a tool is active, **Rotate** and **Done** buttons replace the R key and right-click. In a vehicle, an on-screen pad replaces W A S D, with Up/Down and Rifle for the helicopter and Horn for the cars.
+
 ## Code layout
 
 | File | Role |
@@ -101,7 +105,9 @@ Rules, prices and behaviour follow the original as documented by its fan wiki an
 | `js/ambient.js` | Clouds, pterosaurs, helipad |
 | `js/ui.js`, `js/hud.js`, `js/icons.js`, `js/thumbs.js` | Menus and modals; in-game HUD (medallions, build wheel, mailbox); SVG icons; 3D-rendered thumbnails |
 | `js/textures.js` | Canvas-generated textures (grass, skin, flagstone, foliage, bark, water) |
-| `js/tools.js` | Mouse/keyboard tools with previews |
+| `js/tools.js` | Mouse/keyboard/touch tools with previews |
+| `js/touch.js` | On-screen buttons for touch screens (tool bar, drive pad) |
+| `sw.js`, `manifest.webmanifest`, `icons/` | Installable app and offline cache (bump `VERSION` in `sw.js` to refresh cached models) |
 | `js/audio.js` | Synthesized sound and music |
 | `js/save.js` | Local storage save slots, autosave, import/export |
 | `js/data.js` | Species, buildings, research, dig sites, diseases, missions |

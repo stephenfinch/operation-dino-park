@@ -10,6 +10,7 @@ import { loadRigs } from './rigged.js';
 import { loadNature } from './nature.js';
 import { loadPeople } from './people.js';
 import { loadFarm } from './livestock.js';
+import { updateTouch } from './touch.js';
 
 // Keep recent errors for debugging from the browser console (ISLA_ERRORS).
 window.ISLA_ERRORS = [];
@@ -117,6 +118,7 @@ function frame(now) {
   }
   G.engine.updateCamera(dt);
   G.ui.update(dt);
+  updateTouch();
   G.engine.render();
   requestAnimationFrame(frame);
 }
@@ -124,3 +126,14 @@ requestAnimationFrame(frame);
 
 // Debug handle for the browser console.
 window.ISLA = G;
+
+// Offline play and "Add to Home Screen": the service worker caches the game as it loads.
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(() => navigator.serviceWorker.ready).then((reg) => {
+      // Hand over everything this first visit already fetched, so it is cached too.
+      const urls = performance.getEntriesByType('resource').map((e) => e.name).filter((u) => /^https?:/.test(u));
+      reg.active?.postMessage({ type: 'cache', urls: [location.href, ...urls] });
+    }).catch(() => { /* no offline mode */ });
+  });
+}

@@ -550,3 +550,62 @@ body.action-mission #h-money, body.action-mission .gaterow, body.action-mission 
 .og-res { background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; padding: 8px 10px; display: grid; gap: 4px; }
 .og-res small { color: var(--muted); font-size: 11.5px; } .og-res.dim { opacity: 0.55; } .og-res.done { border-color: rgba(120, 200, 100, 0.5); } .og-res.act { border-color: rgba(240, 192, 58, 0.7); }
 @media (max-width: 640px) { .og-pedia { grid-template-columns: 1fr; } }
+
+/* ---------- phones and tablets ---------- */
+html.touch body { -webkit-tap-highlight-color: transparent; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: manipulation; overscroll-behavior: none; }
+html.touch input, html.touch textarea { -webkit-user-select: text; user-select: text; }
+/* a tall menu scrolls from the top instead of being cut off above it */
+#menu { place-items: safe center; }
+
+#tbar { position: fixed; left: 50%; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 26; display: flex; gap: 10px; }
+#tbar .btn { padding: 10px 18px; font-size: 16px; }
+#pad { position: fixed; inset: auto 0 calc(70px + env(safe-area-inset-bottom, 0px)) 0; z-index: 26; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 calc(14px + env(safe-area-inset-right, 0px)) 0 calc(14px + env(safe-area-inset-left, 0px)); pointer-events: none; }
+#pad button { pointer-events: auto; touch-action: none; font-family: var(--f-carved); font-weight: 700; color: var(--text); border-radius: 50%; border: 2px solid var(--glass-edge);
+  background: radial-gradient(circle at 40% 35%, rgba(110, 150, 86, 0.75), rgba(40, 66, 32, 0.8)); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5); text-shadow: 0 1px 1px #000; }
+#pad button.on { background: radial-gradient(circle at 40% 35%, #f0cf62, #a8852a); color: #1a1406; text-shadow: none; }
+#pad .dpad { display: grid; grid-template: 'a u b' 54px 'l c r' 54px 'd n e' 54px / 54px 54px 54px; gap: 2px; }
+#pad .dpad button { width: 54px; height: 54px; font-size: 20px; }
+#pad .up { grid-area: u; } #pad .lt { grid-area: l; } #pad .rt { grid-area: r; } #pad .dn { grid-area: n; }
+#pad .extra { display: grid; gap: 8px; }
+#pad .extra button { width: 64px; height: 64px; font-size: 13px; }
+
+@media (max-height: 520px) {
+  #status-tl { transform: scale(0.72); transform-origin: left top; left: calc(10px + env(safe-area-inset-left, 0px)); }
+  #counters, #selpanel { transform: scale(0.8); transform-origin: right top; right: calc(8px + env(safe-area-inset-right, 0px)); }
+  #arc { transform: scale(0.68); transform-origin: left bottom; left: calc(6px + env(safe-area-inset-left, 0px)); bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  .fanitem { --st: clamp(30px, (100vh - 110px) / var(--n), 62px); left: calc(16px + var(--b) * 54px); bottom: calc(100px + var(--i) * var(--st)); }
+  .fanitem span { left: calc(100% + 8px); font-size: 14px; }
+  #objectives { top: 120px; width: 230px; font-size: 13px; max-height: calc(100% - 210px); overflow-y: auto; }
+  #info { top: 72px; width: 290px; max-height: calc(100% - 82px); }
+  #buildcard { top: 8px; right: 8px; width: 250px; max-height: calc(100% - 16px); overflow-y: auto; }
+  #buildcard .holo { height: 90px; }
+  #mm-tab { top: 40%; }
+  #minimap-wrap { top: 8px; }
+  #mailbox { bottom: 70px; max-height: calc(100% - 80px); }
+  #modal-wrap { padding: 6px; }
+  .modal { max-height: 100%; }
+  .modal-head { padding: 6px 12px; } .modal-head h2 { font-size: 21px; }
+  .modal-body { padding: 10px 12px; }
+  #toasts { width: min(420px, calc(100% - 300px)); top: 6px; }
+  #ride .rec { top: 6px; } #ride .bar { bottom: 8px; padding: 5px 8px; gap: 8px; }
+  #ride .frame { inset: 5% 8%; }
+  #pad { bottom: calc(56px + env(safe-area-inset-bottom, 0px)); }
+  #pad .dpad { grid-template: 'a u b' 46px 'l c r' 46px 'd n e' 46px / 46px 46px 46px; }
+  #pad .dpad button { width: 46px; height: 46px; }
+  #pad .extra button { width: 54px; height: 54px; }
+  #tbar { bottom: calc(8px + env(safe-area-inset-bottom, 0px)); }
+  .gatewrap { height: auto; min-height: 0; }
+  .logo { font-size: clamp(34px, 7vw, 56px); }
+  .arch { padding: 8px 16px 10px; margin-top: 8px; }
+  .doors { padding: 12px; gap: 10px; }
+  .medals .mb .medal { width: 56px; height: 56px; padding: 11px; }
+  .medals { grid-template-columns: repeat(5, 74px); gap: 8px 4px; }
+}
+@media (max-width: 760px) {
+  #status-tl { transform: scale(0.8); transform-origin: left top; max-width: calc((100vw - 150px) / 0.8); }
+  .gaterow { flex-wrap: wrap; }
+  .medal.mail { bottom: calc(118px + env(safe-area-inset-bottom, 0px)); }
+  #mailbox { bottom: 180px; }
+  #pad { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+  #tbar { bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
+}
