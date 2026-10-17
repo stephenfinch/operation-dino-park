@@ -1,0 +1,15 @@
+{
+  "name": "isla-genesis",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A dinosaur park builder for the browser, inspired by Operation Genesis.",
+  "scripts": {
+    "start": "python3 tools/serve.py 8765",
+    "build": "node tools/build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "three": "^0.160.0"
+  }
+}

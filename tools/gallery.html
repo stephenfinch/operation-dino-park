@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Isla Genesis model gallery</title>
+<style>
+  body { background: #121c16; color: #ece3cc; font: 13px system-ui; margin: 0; padding: 12px; }
+  .g { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
+  figure { margin: 0; background: #1b2a21; border-radius: 6px; padding: 4px; text-align: center; }
+  img { width: 100%; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<div class="g" id="g"></div>
+<script type="module">
+  import { Thumbs } from '../js/thumbs.js';
+  import { loadRigs } from '../js/rigged.js';
+  await loadRigs('../assets/models/quaternius/');
+  import { SPECIES, BUILDINGS } from '../js/data.js';
+  const t = new Thumbs();
+  const g = document.getElementById('g');
+  const what = new URLSearchParams(location.search).get('show') || 'species';
+  const add = (src, name) => { const f = document.createElement('figure'); f.innerHTML = `<img src="${src}"><figcaption>${name}</figcaption>`; g.append(f); };
+  const one = new URLSearchParams(location.search).get('sp');
+  if (one) { document.querySelector('.g').style.gridTemplateColumns = '1fr'; for (const id of one.split(',')) { t.cache.clear(); const img = t.render('big:' + id, (() => { const m = t.speciesMesh(id); return m; })(), { dir: [0.5, 0.25, 1], zoom: 0.62, w: 760, h: 300 }); add(img, id); } }
+  else if (what === 'species') for (const s of SPECIES) add(t.species(s.id, true), s.name);
+  else if (what === 'buildings') for (const b of BUILDINGS) add(t.building(b.id), b.name);
+  else { for (let i = 1; i <= 6; i++) add(t.flora(i), 'flora ' + i); for (let i = 1; i <= 3; i++) add(t.fence(i), 'fence ' + i); for (const v of ['jeep', 'ranger', 'heli', 'balloon']) add(t.vehicle(v), v); }
+</script>
+</body>
+</html>

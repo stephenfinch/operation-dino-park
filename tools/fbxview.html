@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FBX viewer</title>
+<style>body { margin: 0; background: #1a2218; color: #eee; font: 13px system-ui; } canvas { display: block; } #info { position: fixed; left: 8px; top: 8px; white-space: pre; }</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="info"></div>
+<script type="module">
+// Dev-only: inspect the CC0 dinosaur FBX files (size, bones, materials, clips).
+import * as THREE from 'three';
+import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+const names = ['Apatosaurus', 'Parasaurolophus', 'Stegosaurus', 'Trex', 'Triceratops', 'Velociraptor'];
+const r = new THREE.WebGLRenderer({ antialias: true });
+r.setSize(innerWidth, innerHeight); document.body.appendChild(r.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x1a2218);
+scene.add(new THREE.HemisphereLight(0xffffff, 0x445533, 1.2));
+const sun = new THREE.DirectionalLight(0xffffff, 2); sun.position.set(3, 5, 2); scene.add(sun);
+const cam = new THREE.PerspectiveCamera(40, innerWidth / innerHeight, 0.01, 1000);
+const loader = new FBXLoader();
+const report = {}; const mixers = [];
+let x = 0;
+for (const n of names) {
+  const obj = await loader.loadAsync(`../assets/models/quaternius/${n}.fbx`);
+  const box = new THREE.Box3().setFromObject(obj), size = box.getSize(new THREE.Vector3());
+  const mats = new Set(), bones = [];
+  obj.traverse((o) => { if (o.isMesh) [].concat(o.material).forEach((m) => mats.add(`${m.name}:${m.color?.getHexString()}`)); if (o.isBone) bones.push(o.name); });
+  report[n] = { size: size.toArray().map((v) => +v.toFixed(2)), scale: obj.scale.toArray(), mats: [...mats], bones: bones.length, boneNames: bones.slice(0, 40), clips: obj.animations.map((a) => `${a.name} ${a.duration.toFixed(2)}s`) };
+  const s = 1 / Math.max(size.x, size.y, size.z) * 2; obj.scale.multiplyScalar(s);
+  obj.position.set(x, 0, 0); x += 2.4; scene.add(obj);
+  const mx = new THREE.AnimationMixer(obj); const walk = obj.animations.find((a) => /walk/i.test(a.name)) || obj.animations[0]; if (walk) mx.clipAction(walk).play(); mixers.push(mx);
+}
+window.REPORT = report;
+cam.position.set(x / 2 - 1.2, 2.2, 6); cam.lookAt(x / 2 - 1.2, 0.5, 0);
+const clock = new THREE.Clock();
+r.setAnimationLoop(() => { const dt = clock.getDelta(); mixers.forEach((m) => m.update(dt)); r.render(scene, cam); });
+</script>
+</body>
+</html>
