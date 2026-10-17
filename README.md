@@ -15,7 +15,7 @@ Build fences and paths, fund fossil digs around the world, extract DNA, hatch 25
 
 ## Play
 
-**Online:** https://stephenfinch.github.io/isla-genesis/ (GitHub Pages, deployed from `main`). It works on phones and tablets, and can be installed as an app ("Add to Home Screen" / "Install app"); after the first visit it plays offline.
+**Online:** https://stephenfinch.github.io/operation-dino-park/ (GitHub Pages, deployed from `main`). It works on phones and tablets, and can be installed as an app ("Add to Home Screen" / "Install app"); after the first visit it plays offline.
 
 **Local, no build step:**
 
