@@ -1,6 +1,7 @@
 // Save games in localStorage. Slot "auto" holds the autosave.
 import { G } from './state.js';
 
+// Storage keys keep the game's first name (Isla Genesis) so existing saves still load.
 const PREFIX = 'isla-genesis:save:';
 export const SLOTS = ['auto', '1', '2', '3', '4', '5', '6'];
 
@@ -61,7 +62,7 @@ export async function exportSave() {
   const g = G.game;
   if (!g) return;
   const data = JSON.stringify(g.serialize());
-  const filename = `${(g.park.name || 'park').replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-day${g.park.day}.isla.json`;
+  const filename = `${(g.park.name || 'park').replace(/[^a-z0-9]+/gi, '-').toLowerCase()}-day${g.park.day}.dinopark.json`;
   if (framed) {
     if (!downloads) return;
     try { await downloads.save({ filename, data }); g.notify('Save file exported.', 'good'); }

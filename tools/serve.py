@@ -1,4 +1,4 @@
-"""Local dev server for Isla Genesis with caching disabled."""
+"""Local dev server for Operation Dino Park with caching disabled."""
 import functools
 import http.server
 import os

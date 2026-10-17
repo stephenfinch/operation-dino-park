@@ -580,8 +580,8 @@ export const EXERCISES = [
 ];
 
 export const CAREER = {
-  id: 'career', name: 'Isla Genesis', seed: 4242, money: 60000,
-  brief: 'Your investors have given you $60,000 to build a park. Start small, keep your guests safe, and grow Isla Genesis into a 5-star attraction.',
+  id: 'career', name: 'Operation Dino Park', seed: 4242, money: 60000,
+  brief: 'Your investors have given you $60,000 to build a park. Start small, keep your guests safe, and grow Operation Dino Park into a 5-star attraction.',
   dna: {},
   goals: [{ type: 'stars', n: 5, text: 'Reach a 5-star rating' }],
   advisor: 'founder', win: 'Five stars! The park is everything I dreamed it could be. The board is delighted.',

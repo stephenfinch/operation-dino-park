@@ -203,7 +203,7 @@ ${this.hudSkeleton()}
   onInput(e) {
     const t = e.target, g = G.game;
     if (t.id === 'fee' && g) { g.park.setFee(Number(t.value)); const o = this.$('feeOut'); if (o) o.textContent = `$${t.value}`; this.refreshTop(); const lb = t.closest('.gatepanel')?.querySelector('label b'); if (lb) lb.textContent = `$${g.park.fee}`; }
-    if (t.id === 'parkName' && g && e.type === 'change') { g.park.name = t.value.slice(0, 40) || 'Isla Genesis'; this.refreshTop(); }
+    if (t.id === 'parkName' && g && e.type === 'change') { g.park.name = t.value.slice(0, 40) || 'Operation Dino Park'; this.refreshTop(); }
     if (t.id === 'dinoName' && e.type === 'change' && g?.selected?.kind === 'dino') { g.selected.ref.name = t.value.slice(0, 20) || g.selected.ref.name; }
     if (t.dataset.opt) {
       const k = t.dataset.opt;
@@ -213,7 +213,7 @@ ${this.hudSkeleton()}
       if (k === 'shadows') G.engine.setShadows(v);
     }
     if (t.id === 'importFile' && t.files?.[0]) {
-      importSaveFile(t.files[0]).then((d) => { G.main.startFromSave(d); this.closeModal(); }).catch(() => this.toast({ text: 'That file is not a valid Isla Genesis save.', kind: 'danger' }));
+      importSaveFile(t.files[0]).then((d) => { G.main.startFromSave(d); this.closeModal(); }).catch(() => this.toast({ text: 'That file is not a valid Operation Dino Park save.', kind: 'danger' }));
     }
   }
 
@@ -1245,7 +1245,7 @@ ${win && next && (g.mode === 'mission' || g.mode === 'exercise') ? `<button clas
 <div class="gatewrap">
   <div class="pillar l"><div class="torch"><i></i></div><div class="torch lo"><i></i></div></div>
   <div class="gatebody">
-    <div class="arch"><h1 class="logo">Isla Genesis<small>Dinosaur Park</small></h1></div>
+    <div class="arch"><h1 class="logo"><small class="pre">Operation</small>Dino Park</h1></div>
     <div class="doors"><div class="door l"></div><div class="door r"></div>${inner}</div>
   </div>
   <div class="pillar r"><div class="torch"><i></i></div><div class="torch lo"><i></i></div></div>
@@ -1297,7 +1297,7 @@ ${medal('help', 'info', 'How to Play')}
 <label for="ig-form" class="carved" style="display:grid;gap:4px;font-size:14px">Island shape<select id="ig-form" data-genform="1">${forms}</select></label>
 <div class="ig-info" id="ig-info"></div>
 <div class="sliders">${sl('shape', 'Smooth coast')}${sl('trees', 'Trees')}${sl('rivers', 'Rivers')}${sl('mountains', 'Mountains')}</div>
-<label for="ig-name" class="carved" style="display:grid;gap:4px;font-size:14px">Park name<input id="ig-name" type="text" value="${esc(this.genName || 'Isla Genesis')}" maxlength="40"></label>
+<label for="ig-name" class="carved" style="display:grid;gap:4px;font-size:14px">Park name<input id="ig-name" type="text" value="${esc(this.genName || 'Operation Dino Park')}" maxlength="40"></label>
 <div class="row"><button class="btn" data-act="menu" data-do="nextIsland">Next Island</button><button class="btn primary" data-act="menu" data-do="startCareer">Start</button></div>
 <button class="btn small" data-act="menu" data-do="back">Back</button>`;
     this.root.appendChild(el);
@@ -1325,7 +1325,7 @@ ${medal('help', 'info', 'How to Play')}
       case 'career': this.showIslandGen(); break;
       case 'nextIsland': this.genParams.seed = Math.floor(Math.random() * 99999); M.previewIsland(this.genParams); this.islandInfo(); break;
       case 'genSize': this.genParams.size = Number(d.v); this.showIslandGen(); break;
-      case 'startCareer': { const P = this.genParams; M.newGame({ mode: 'career', name: this.$('ig-name')?.value || 'Isla Genesis', seed: P.seed, params: { shape: P.shape, trees: P.trees, rivers: P.rivers, mountains: P.mountains, size: P.size, form: P.form } }); break; }
+      case 'startCareer': { const P = this.genParams; M.newGame({ mode: 'career', name: this.$('ig-name')?.value || 'Operation Dino Park', seed: P.seed, params: { shape: P.shape, trees: P.trees, rivers: P.rivers, mountains: P.mountains, size: P.size, form: P.form } }); break; }
       case 'missions': this.showMenu('missions'); break;
       case 'exercises': this.showMenu('exercises'); break;
       case 'dinopedia': this.$('menu').hidden = true; this.pediaFromMenu = true; this.openModal('dinopedia'); break;

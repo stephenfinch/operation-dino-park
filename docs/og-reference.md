@@ -1,7 +1,7 @@
 # Original game reference notes
 
 Gameplay numbers and rules from the user's own copy of *Operation Genesis* (2003): the config files that survived a partial download.
-They are used only to cross-check and tune Isla Genesis's behaviour. No text, art, audio or code from the original is copied into this project.
+They are used only to cross-check and tune Operation Dino Park's behaviour. No text, art, audio or code from the original is copied into this project.
 
 ## Time
 - 1 game year = 3600 real s; 1 month = 300 s; 1 week = 75 s; 1 day = 10 s.

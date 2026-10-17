@@ -1,5 +1,5 @@
 // Bundles the game into single self-contained HTML files (Three.js included).
-//   dist/isla-genesis.html  – page body for publishing as a claude.ai artifact (no doctype/head/body tags)
+//   dist/operation-dino-park.html  – page body for publishing as a claude.ai artifact (no doctype/head/body tags)
 //   dist/standalone.html    – complete HTML file you can open directly from disk
 import { build } from 'esbuild';
 import fs from 'node:fs';
@@ -29,28 +29,28 @@ for (const dir of ['assets/models/quaternius', 'assets/models/quaternius-nature'
 }
 const modelScript = `<script>window.ISLA_MODELS=${JSON.stringify(models)};</script>`;
 const body = `${modelScript}
-<canvas id="c" tabindex="0" aria-label="Isla Genesis park view"></canvas>
+<canvas id="c" tabindex="0" aria-label="Operation Dino Park park view"></canvas>
 <div id="ui"></div>
-<div id="loading">Loading Isla Genesis…</div>
+<div id="loading">Loading Operation Dino Park…</div>
 <script type="module">
 ${js}
 </script>`;
 
 fs.mkdirSync(path.join(root, 'dist'), { recursive: true });
-const artifact = `<title>Isla Genesis</title>
+const artifact = `<title>Operation Dino Park</title>
 ${fonts}
 <style>
 ${css}
 </style>
 ${body}
 `;
-fs.writeFileSync(path.join(root, 'dist/isla-genesis.html'), artifact);
+fs.writeFileSync(path.join(root, 'dist/operation-dino-park.html'), artifact);
 const standalone = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Isla Genesis</title>
+<title>Operation Dino Park</title>
 ${fonts}
 <style>
 ${css}
@@ -63,4 +63,4 @@ ${body}
 `;
 fs.writeFileSync(path.join(root, 'dist/standalone.html'), standalone);
 const kb = (s) => `${(Buffer.byteLength(s) / 1024).toFixed(0)} KB`;
-console.log(`dist/isla-genesis.html ${kb(artifact)}\ndist/standalone.html ${kb(standalone)}`);
+console.log(`dist/operation-dino-park.html ${kb(artifact)}\ndist/standalone.html ${kb(standalone)}`);

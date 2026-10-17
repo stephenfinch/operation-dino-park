@@ -5,7 +5,7 @@ import { clamp, rand, randi, pick, chance, fmtMoney, lerp } from './util.js';
 
 export const INCOME_CATS = ['Entry', 'Shops', 'Rides', 'Hotels', 'Photos', 'Sales'];
 export const EXPENSE_CATS = ['Construction', 'Upkeep', 'Staff', 'Feed', 'Stock', 'Research', 'Expeditions', 'Hatchery', 'Fines'];
-const PROGRESS_KEY = 'isla-genesis:progress';
+const PROGRESS_KEY = 'isla-genesis:progress'; // old name kept so saved progress still loads
 
 export function loadProgress() {
   try {
@@ -28,7 +28,7 @@ export class Park {
     this.mission = opts.mission || null;
     this.unlimited = opts.mode === 'sandbox' || opts.mode === 'siteb';
     this.money = this.unlimited ? 1e9 : (this.mission?.money ?? 100000);
-    this.name = opts.name || 'Isla Genesis';
+    this.name = opts.name || 'Operation Dino Park';
     this.dayFrac = 0.12;
     this.day = 1;
     this.fee = 200;

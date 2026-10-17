@@ -17,7 +17,7 @@ export const G = {
   },
 };
 
-const SETTINGS_KEY = 'isla-genesis:settings';
+const SETTINGS_KEY = 'isla-genesis:settings'; // old name kept so saved settings still load
 export function loadSettings() {
   try {
     const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');

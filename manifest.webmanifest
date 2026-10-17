@@ -1,6 +1,6 @@
 {
-  "name": "Isla Genesis",
-  "short_name": "Isla Genesis",
+  "name": "Operation Dino Park",
+  "short_name": "Dino Park",
   "description": "A dinosaur park builder for the browser, inspired by Operation Genesis.",
   "id": "./",
   "start_url": "./",

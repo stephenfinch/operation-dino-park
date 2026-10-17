@@ -284,6 +284,7 @@ input[type=range] { accent-color: var(--gold); }
 .logo { font-size: clamp(46px, 8vw, 84px); font-weight: 900; line-height: 0.9; margin: 0; text-align: center; color: #f6c94a;
   text-shadow: 0 2px 0 #7a3a10, 0 4px 0 #4a1e08, 0 0 2px #000, 0 8px 24px rgba(0, 0, 0, 0.8); letter-spacing: 0.04em; }
 .logo small { display: block; font-size: 0.32em; letter-spacing: 0.32em; color: var(--text); margin-top: 8px; text-shadow: 0 1px 0 #000, 0 2px 8px #000; }
+.logo small.pre { margin: 0 0 6px; font-size: 0.34em; letter-spacing: 0.4em; }
 .medals { display: grid; grid-template-columns: repeat(4, 96px); gap: 22px 34px; justify-content: center; margin-top: 10px; }
 .medals .mb { display: grid; justify-items: center; gap: 6px; background: none; border: 0; cursor: pointer; padding: 0; }
 .medals .mb .medal { width: 84px; height: 84px; padding: 16px; }

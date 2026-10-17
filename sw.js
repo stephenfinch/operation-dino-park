@@ -2,7 +2,7 @@
 // Game code (HTML, JS, CSS) is network-first, so a new deploy shows up on the next load.
 // Models, fonts and the three.js CDN files are cache-first; bump VERSION to refresh them.
 const VERSION = 'v1';
-const CACHE = 'isla-genesis-' + VERSION;
+const CACHE = 'operation-dino-park-' + VERSION;
 const SHELL = ['./', 'index.html', 'css/style.css', 'js/main.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 const NET_TIMEOUT = 4000;
 
@@ -12,7 +12,7 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys()
-    .then((keys) => Promise.all(keys.filter((k) => k.startsWith('isla-genesis-') && k !== CACHE).map((k) => caches.delete(k))))
+    .then((keys) => Promise.all(keys.filter((k) => /^(isla-genesis|operation-dino-park)-/.test(k) && k !== CACHE).map((k) => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 

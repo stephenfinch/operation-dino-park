@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "isla-genesis", "runtimeExecutable": "python3", "runtimeArgs": ["/Users/stephenfinch/Projects/personal/isla-genesis/tools/serve.py", "8765"], "port": 8765 }
+    { "name": "operation-dino-park", "runtimeExecutable": "python3", "runtimeArgs": ["/Users/stephenfinch/Projects/personal/isla-genesis/tools/serve.py", "8765"], "port": 8765 }
   ]
 }

@@ -1,4 +1,4 @@
-# Isla Genesis
+# Operation Dino Park
 
 A dinosaur park builder for the browser, made as a from-scratch homage to *Jurassic Park: Operation Genesis* (2003). All names and sounds are original. The 3D art uses three public-domain (CC0 1.0) packs:
 
@@ -32,7 +32,7 @@ npm install
 npm run build
 ```
 
-This writes `dist/standalone.html` (open directly) and `dist/isla-genesis.html`. Both embed the dinosaur models. `dist/isla-genesis.html` is the same page without the `<html>`/`<head>` wrapper, for publishing as a claude.ai artifact.
+This writes `dist/standalone.html` (open directly) and `dist/operation-dino-park.html`. Both embed the dinosaur models. `dist/operation-dino-park.html` is the same page without the `<html>`/`<head>` wrapper, for publishing as a claude.ai artifact.
 
 ## Game modes
 
